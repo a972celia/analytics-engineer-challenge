@@ -9,7 +9,7 @@
 
 ## Summary
 
-Hi! Thanks for sharing your code. I can see you've put good thought into the business logic and CTE structure. However, there are **several critical performance issues** causing the slow build times you mentioned. The good news is they're all fixable! Below I'll walk through each issue and provide optimized solutions.
+ There are **several critical performance issues** causing the slow build times you mentioned. The good news is they're all fixable! Below I'll walk through each issue and provide optimized solutions.
 
 ## Critical Issues (Performance Killers)
 
@@ -318,15 +318,15 @@ You mentioned:
 {% endif %}
 ```
 
-This way, you only recalculate changed users, and downstream tables can safely be incremental too!
+This way, we only recalculate changed users, and downstream tables can safely be incremental too!
 
 ---
 
-## What You Did Well
+## What Did Well
 
 1. **Clear CTE structure** - Great use of CTEs to break down complex logic
 2. **Good naming** - Variable names are descriptive
-3. **Business logic understanding** - You correctly identified the need to find challenges before song plays
+3. **Business logic understanding** - Correctly identified the need to find challenges before song plays
 4. **Left joins in final** - Properly preserving all users even if they lack certain activities
 
 ---
@@ -490,14 +490,6 @@ Based on typical data volumes:
 
 ---
 
-## Learning Resources
-
-- **Window Functions**: https://mode.com/sql-tutorial/sql-window-functions/
-- **Query Performance**: https://use-the-index-luke.com/
-- **DBT Incremental Models**: https://docs.getdbt.com/docs/build/incremental-models
-
----
-
 ## Questions?
 
 Happy to discuss any of these suggestions! The main takeaways:
@@ -506,9 +498,7 @@ Happy to discuss any of these suggestions! The main takeaways:
 2. Use window functions instead
 3. Never create Cartesian joins + filter later
 4. Filter in JOIN conditions before combining data
-5. Window functions are your best friend for this type of analysis
-
-Great work on the business logic - with these performance fixes, this will be a solid, production-ready model!
+5. Window functions are the best friend for this type of analysis
 
 ---
 
