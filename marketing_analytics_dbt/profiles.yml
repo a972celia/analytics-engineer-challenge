@@ -1,0 +1,7 @@
+marketing_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: marketing_analytics.duckdb
+      threads: 4

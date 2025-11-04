@@ -1,0 +1,124 @@
+version: 2
+
+models:
+  - name: stg_ad_network_1__campaign_updates
+    description: "Campaign metadata from Ad Network 1"
+    columns:
+      - name: campaign_id
+        description: "Unique campaign identifier"
+        tests:
+          - not_null
+      - name: update_date
+        description: "Date when campaign info was updated"
+      - name: campaign_name
+        description: "Campaign name"
+
+  - name: stg_ad_network_1__geo_dictionary
+    description: "Geographic location lookup table for Ad Network 1"
+    columns:
+      - name: location_id
+        description: "Unique location identifier"
+        tests:
+          - unique
+          - not_null
+      - name: country_code
+        description: "ISO Alpha-2 country code"
+        tests:
+          - not_null
+      - name: location_name
+        description: "Full name of the location"
+      - name: location_type
+        description: "Type of location (Country, State, City, Postal Code, etc.)"
+        tests:
+          - accepted_values:
+              values: ['Country', 'State', 'City', 'District', 'Postal Code', 'Union Territory', 'Province', 'Region']
+
+  - name: stg_ad_network_1__country_report
+    description: "Country-level performance metrics from Ad Network 1"
+    columns:
+      - name: date
+        description: "Report date"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "Campaign identifier"
+        tests:
+          - not_null
+      - name: country_id
+        description: "Country location ID"
+        tests:
+          - not_null
+      - name: state_id
+        description: "State location ID (null for country-level report)"
+      - name: spend
+        description: "Ad spend in USD"
+        tests:
+          - not_null
+      - name: impressions
+        description: "Number of ad impressions"
+        tests:
+          - not_null
+      - name: clicks
+        description: "Number of ad clicks"
+        tests:
+          - not_null
+
+  - name: stg_ad_network_1__detailed_report
+    description: "State-level performance metrics from Ad Network 1"
+    columns:
+      - name: date
+        description: "Report date"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "Campaign identifier"
+        tests:
+          - not_null
+      - name: country_id
+        description: "Country location ID"
+        tests:
+          - not_null
+      - name: state_id
+        description: "State location ID"
+        tests:
+          - not_null
+      - name: spend
+        description: "Ad spend in USD"
+        tests:
+          - not_null
+      - name: impressions
+        description: "Number of ad impressions"
+        tests:
+          - not_null
+      - name: clicks
+        description: "Number of ad clicks"
+        tests:
+          - not_null
+
+  - name: stg_ad_network_2__report
+    description: "Performance metrics from Ad Network 2"
+    columns:
+      - name: campaign_id
+        description: "Campaign identifier"
+        tests:
+          - not_null
+      - name: campaign_name
+        description: "Campaign name (contains country code)"
+        tests:
+          - not_null
+      - name: date
+        description: "Report date"
+        tests:
+          - not_null
+      - name: spend
+        description: "Ad spend in USD"
+        tests:
+          - not_null
+      - name: impressions
+        description: "Number of ad impressions"
+        tests:
+          - not_null
+      - name: clicks
+        description: "Number of ad clicks"
+        tests:
+          - not_null
