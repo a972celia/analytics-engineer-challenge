@@ -11,7 +11,7 @@
 
 Hi! Thanks for sharing your code. I can see you've put good thought into the business logic and CTE structure. However, there are **several critical performance issues** causing the slow build times you mentioned. The good news is they're all fixable! Below I'll walk through each issue and provide optimized solutions.
 
-## 🔴 Critical Issues (Performance Killers)
+## Critical Issues (Performance Killers)
 
 ### 1. Correlated Subquery in WHERE Clause (Lines 8)
 
@@ -111,7 +111,7 @@ last_song_played as (
 
 ---
 
-### 3. Cartesian Join + Correlated Subquery (Lines 40-68) 🚨 BIGGEST ISSUE
+### 3. Cartesian Join + Correlated Subquery (Lines 40-68) - BIGGEST ISSUE
 
 **Problem**: This is the **major performance killer** in your query.
 
@@ -176,10 +176,10 @@ song_played_after_challenge as (
 ```
 
 **Key improvements**:
-- ✅ Join condition filters BEFORE the Cartesian product
-- ✅ Window function replaces correlated subquery
-- ✅ `QUALIFY` clause (if supported) simplifies getting first per user
-- ✅ Single pass through the data
+- Join condition filters BEFORE the Cartesian product
+- Window function replaces correlated subquery
+- `QUALIFY` clause (if supported) simplifies getting first per user
+- Single pass through the data
 
 **Alternative without QUALIFY** (more compatible):
 ```sql
@@ -226,7 +226,7 @@ song_played_after_challenge as (
 
 ---
 
-## 🟡 Minor Issues & Suggestions
+## Minor Issues & Suggestions
 
 ### 4. Unnecessary SELECT * FROM (Lines 11, 22)
 
@@ -271,7 +271,7 @@ This is a **logic bug** - you might get the wrong song/challenge name!
 
 ---
 
-## 📊 Regarding Incremental Models
+## Regarding Incremental Models
 
 You mentioned:
 > "I will anyway build some more aggregated tables on top of this one. Maybe I can make those incremental"
@@ -322,7 +322,7 @@ This way, you only recalculate changed users, and downstream tables can safely b
 
 ---
 
-## ✅ What You Did Well
+## What You Did Well
 
 1. **Clear CTE structure** - Great use of CTEs to break down complex logic
 2. **Good naming** - Variable names are descriptive
@@ -331,7 +331,7 @@ This way, you only recalculate changed users, and downstream tables can safely b
 
 ---
 
-## 🚀 Optimized Full Query
+## Optimized Full Query
 
 Here's the complete optimized version:
 
@@ -459,7 +459,7 @@ select * from final
 
 ---
 
-## 📈 Expected Performance Improvement
+## Expected Performance Improvement
 
 Based on typical data volumes:
 
@@ -474,7 +474,7 @@ Based on typical data volumes:
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
 1. **Test the optimized query** on a sample of data first
 2. **Compare results** to ensure logic is preserved (they should match!)
@@ -490,7 +490,7 @@ Based on typical data volumes:
 
 ---
 
-## 📚 Learning Resources
+## Learning Resources
 
 - **Window Functions**: https://mode.com/sql-tutorial/sql-window-functions/
 - **Query Performance**: https://use-the-index-luke.com/
@@ -502,11 +502,11 @@ Based on typical data volumes:
 
 Happy to discuss any of these suggestions! The main takeaways:
 
-1. ❌ Avoid correlated subqueries in WHERE clauses
-2. ✅ Use window functions instead
-3. ❌ Never create Cartesian joins + filter later
-4. ✅ Filter in JOIN conditions before combining data
-5. 🎯 Window functions are your best friend for this type of analysis
+1. Avoid correlated subqueries in WHERE clauses
+2. Use window functions instead
+3. Never create Cartesian joins + filter later
+4. Filter in JOIN conditions before combining data
+5. Window functions are your best friend for this type of analysis
 
 Great work on the business logic - with these performance fixes, this will be a solid, production-ready model!
 
